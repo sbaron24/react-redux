@@ -1,3 +1,5 @@
+import { connect } from 'react-redux'
+import { addNewGrocery } from '../modules/groceries'
 import React, { Component } from 'react'
 
 import GroceryListContainer from './GroceryListContainer'
@@ -6,19 +8,6 @@ import GroceryFormContainer from './GroceryFormContainer'
 class GroceryPageContainer extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      groceryList: []
-    }
-
-    this.addNewGrocery = this.addNewGrocery.bind(this)
-  }
-
-  addNewGrocery(grocery) {
-    const newGroceries = this.state.groceryList.concat(grocery)
-
-    this.setState({
-      groceryList: newGroceries
-    })
   }
 
   render () {
@@ -26,15 +15,30 @@ class GroceryPageContainer extends Component {
       <div>
         <h1>Grocery List React</h1>
         <GroceryFormContainer
-          addNewGrocery={this.addNewGrocery}
-          groceryList={this.state.groceryList}
+          addNewGrocery={this.props.addNewGrocery}
+          groceryList={this.props.groceryList}
         />
         <GroceryListContainer
-          groceries={this.state.groceryList}
+          groceries={this.props.groceryList}
         />
       </div>
     )
   }
 };
 
-export default GroceryPageContainer
+const mapStateToProps = (state) => {
+  return {
+    groceryList: state.groceries.groceryList
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addNewGrocery: (grocery) => dispatch(addNewGrocery(grocery))
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(GroceryPageContainer)
