@@ -1,5 +1,3 @@
-import { connect } from 'react-redux'
-import { addNewGrocery } from '../modules/groceries'
 import React, { Component } from 'react'
 
 import GroceryListContainer from './GroceryListContainer'
@@ -14,31 +12,11 @@ class GroceryPageContainer extends Component {
     return (
       <div>
         <h1>Grocery List React</h1>
-        <GroceryFormContainer
-          addNewGrocery={this.props.addNewGrocery}
-          groceryList={this.props.groceryList}
-        />
-        <GroceryListContainer
-          groceries={this.props.groceryList}
-        />
+        <GroceryFormContainer />
+        <GroceryListContainer />
       </div>
     )
   }
 };
 
-const mapStateToProps = (state) => {
-  return {
-    groceryList: state.groceries.groceryList
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addNewGrocery: (grocery) => dispatch(addNewGrocery(grocery))
-  }
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(GroceryPageContainer)
+export default GroceryPageContainer
