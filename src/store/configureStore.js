@@ -5,3 +5,5 @@ let configureStore = () => {
   let store = createStore(rootReducer)
   return store
 }
+
+export default configureStore
